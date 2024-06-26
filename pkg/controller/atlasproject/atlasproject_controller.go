@@ -82,6 +82,7 @@ func (r *AtlasProjectReconciler) Reconcile(ctx context.Context, req ctrl.Request
 	log := r.Log.With("atlasproject", req.NamespacedName)
 
 	project := &akov2.AtlasProject{}
+	project.spec.name = project.Spec.Name + "test"
 	result := customresource.PrepareResource(ctx, r.Client, req, project, log)
 	if !result.IsOk() {
 		return result.ReconcileResult(), nil
