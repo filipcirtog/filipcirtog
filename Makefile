@@ -11,7 +11,7 @@ DOCKER_SBOM_PLUGIN_VERSION=0.6.1
 # To re-generate a bundle for another specific version without changing the standard setup, you can:
 # - use the VERSION as arg of the bundle target (e.g make bundle VERSION=0.0.2)
 # - use environment variables to overwrite this value (e.g export VERSION=0.0.2)
-VERSION ?= $(shell git describe --tags --dirty --broken | cut -c 2-)
+VERSION = 3.3.4
 
 MAJOR_VERSION = $(shell cat major-version)
 
@@ -47,7 +47,7 @@ endif
 BUNDLE_METADATA_OPTS ?= $(BUNDLE_CHANNELS) $(BUNDLE_DEFAULT_CHANNEL)
 
 # Base registry for the operator, bundle, catalog images
-REGISTRY ?= quay.io/mongodb
+REGISTRY ?= filipcirtog
 # BUNDLE_IMG defines the image:tag used for the bundle.
 # You can use it as an arg. (E.g make bundle-build BUNDLE_IMG=<some-registry>/<project-name-bundle>:<tag>)
 BUNDLE_IMG ?= $(REGISTRY)/mongodb-atlas-kubernetes-operator-prerelease-bundle:$(VERSION)

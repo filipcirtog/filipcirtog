@@ -12,10 +12,10 @@ a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
 
 package v1
 
-import (	
+import (
 	apiextensionsv1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 	"k8s.io/apimachinery/pkg/runtime"
-	
+
 	"github.com/mongodb/mongodb-atlas-kubernetes/v2/pkg/api/v1/common"
 	"github.com/mongodb/mongodb-atlas-kubernetes/v2/pkg/api/v1/project"
 )

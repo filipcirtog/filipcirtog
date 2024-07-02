@@ -26,10 +26,10 @@ const (
 )
 
 func TestMain(m *testing.M) {
-	if !control.Enabled("AKO_CONTRACT_TEST") {
-		log.Printf("Skipping contract test as AKO_CONTRACT_TEST is unset")
-		return
-	}
+	// if !control.Enabled("AKO_CONTRACT_TEST") {
+	// 	log.Printf("Skipping contract test as AKO_CONTRACT_TEST is unset")
+	// 	return
+	// }
 	l := launcher.NewFromEnv(testVersion)
 	if err := l.Launch(
 		testYml,
