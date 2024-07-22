@@ -18,6 +18,22 @@ jobs:
         with:
           go-version-file: "${{ github.workspace }}/go.mod"
           cache: false
+        # Cache the Nix installation
+      - name: Cache Nix installation
+        id: cache-nix-install
+        uses: actions/cache@v3
+        with:
+          path: /nix
+          key: ${{ runner.os }}-nix-install
+          restore-keys: |
+            ${{ runner.os }}-nix-install
+
+      # Install Nix if not cached
+      - name: Install Nix
+        if: steps.cache-nix-install.outputs.cache-hit != 'true'
+        run: |
+          curl -L https://nixos.org/nix/install | sh
+          . ~/.nix-profile/etc/profile.d/nix.sh
       - name: Cache Nix store
         uses: actions/cache@v3
         with:
