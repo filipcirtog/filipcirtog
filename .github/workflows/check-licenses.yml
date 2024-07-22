@@ -12,17 +12,8 @@ jobs:
         with:
           ref: ${{github.event.pull_request.head.sha}}
 
-      - name: Restore and save Nix store
-        uses: ./.
-        with:
-          primary-key: build-${{ runner.os }}-${{ hashFiles('**/shell.nix') }}
-          purge: true
-              # purge all versions of the cache
-          purge-prefixes: build-${{ runner.os }}-
-              # created more than 0 seconds ago relative to the start of the `Post Restore` phase
-          purge-created: 0
-              # except the version with the `primary-key`, if it exists
-          purge-primary-key: never
+      - uses: DeterminateSystems/nix-installer-action@main
+      - uses: DeterminateSystems/magic-nix-cache-action@main
       - name: Cache multiple paths
         uses: actions/cache@v4
         with:
