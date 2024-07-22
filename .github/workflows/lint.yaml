@@ -19,10 +19,17 @@ jobs:
           go-version-file: "${{ github.workspace }}/go.mod"
           cache: false
 
-      - name: Install Nix
-        uses: cachix/install-nix-action@v27
+      - name: Restore and save Nix store
+        uses: ./.
         with:
-          nix_path: nixpkgs=channel:nixos-unstable
+          primary-key: build-${{ runner.os }}-${{ hashFiles('**/shell.nix') }}
+          purge: true
+              # purge all versions of the cache
+          purge-prefixes: build-${{ runner.os }}-
+              # created more than 0 seconds ago relative to the start of the `Post Restore` phase
+          purge-created: 0
+              # except the version with the `primary-key`, if it exists
+          purge-primary-key: never
       - name: lint
         run: nix-shell --run 'make lint'
 
