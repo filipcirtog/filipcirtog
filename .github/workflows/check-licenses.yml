@@ -19,7 +19,8 @@ jobs:
             ~/.cache/go-build
             ~/go/pkg/mod
           key: ${{ runner.os }}-build-${{ hashFiles('**/go.sum', '**/go.mod') }}
-
+      - name: Install Nix
+        uses: cachix/install-nix-action@v27
       - name: Setup Go
         uses: actions/setup-go@v5
         with:
@@ -29,4 +30,4 @@ jobs:
       - run: go version
 
       - name: Run testing
-        run: make check-licenses
+        run: nix-shell --run "make check-licenses"
