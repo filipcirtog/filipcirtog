@@ -16,22 +16,6 @@ jobs:
         uses: cachix/install-nix-action@v27
         with:
             nix_path: nixpkgs=channel:nixos-unstable
-      
-      - name: Cache Nix store
-        id: cache-nix
-        uses: actions/cache@v4
-        with:
-              path: |
-                /nix/store
-                ~/.cache/nix
-              key: ${{ runner.os }}-nix-${{ hashFiles('shell.nix') }}
-      - name: Cache multiple paths
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.cache/go-build
-            ~/go/pkg/mod
-          key: ${{ runner.os }}-build-${{ hashFiles('**/go.sum', '**/go.mod') }}
       - name: Setup Go
         uses: actions/setup-go@v5
         with:
