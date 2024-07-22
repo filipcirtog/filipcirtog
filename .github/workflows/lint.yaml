@@ -18,12 +18,19 @@ jobs:
         with:
           go-version-file: "${{ github.workspace }}/go.mod"
           cache: false
+      - name: Cache Nix store
+        uses: actions/cache@v3
+        with:
+          path: |
+            /nix/store
+            ~/.cache/nix
+          key: ${{ runner.os }}-nix-${{ hashFiles('shell.nix') }}
 
       - name: lint
-        run: make lint
+        run: nix-shell --run 'make lint'
 
       - name: Run ShellCheck
         uses: bewuethr/shellcheck-action@v2
 
       - name: Run govulncheck
-        run: make vulncheck
+        run: nix-shell --run 'make vulncheck'
