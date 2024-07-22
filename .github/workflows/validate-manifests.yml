@@ -18,7 +18,7 @@ jobs:
               path: |
                 /nix/store
                 ~/.cache/nix
-              key: ${{ runner.os }}-nix-${{ hashFiles('shell.nix') }}
+              key: ${{ runner.os }}-nix-${{ hashFiles('**shell.nix') }}
       - name: Cache multiple paths
         uses: actions/cache@v4
         with:
