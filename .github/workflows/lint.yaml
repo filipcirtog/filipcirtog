@@ -33,7 +33,7 @@ jobs:
         if: steps.cache-nix-install.outputs.cache-hit != 'true'
         run: |
           curl -L https://nixos.org/nix/install | sh
-          . ~/.nix-profile/etc/profile.d/nix.sh
+          . ~/.nix-profile/etc/profile.d/nix.shell
       - name: Cache Nix store
         uses: actions/cache@v3
         with:
