@@ -1,6 +1,21 @@
 { pkgs ? import <nixpkgs> {} }:
 
 let
+overlay = self: super: {
+    golangci-lint = super.golangci-lint.overrideAttrs (oldAttrs: {
+      version = "1.54.2";
+      src = super.fetchFromGitHub {
+        owner = "golangci";
+        repo = "golangci-lint";
+        rev = "v1.54.0";
+        sha256 = "eebf3786f4a33ec2c04724c90bada412f0343704e1c19b475d6aa25ee8c1ac16";
+      };
+    });
+  };
+
+  pkgsWithOverlay = import <nixpkgs> {
+    overlays = [ overlay ];
+  };
 in pkgs.mkShell {
   buildInputs = [
     pkgs.yq
@@ -15,7 +30,6 @@ in pkgs.mkShell {
     pkgs.envsubst
     pkgs.wget
     pkgs.cosign
-    pkgs.golangci-lint
     pkgs.govulncheck
     pkgs.gotools
     pkgs.go-licenses
