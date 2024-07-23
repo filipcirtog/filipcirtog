@@ -11,7 +11,7 @@ let
       sha256 = "1d5jqm21jvb6lqx2aizv28fqdx747sa8i98hpkpgsdjjvn07jwsi";
     };
 
-    vendorSha256 = "sha256-jUlK/A0HxBrIby2C0zYFtnxQX1bgKVyypI3QdH4u/rg=";
+    vendorHash = "sha256-jUlK/A0HxBrIby2C0zYFtnxQX1bgKVyypI3QdH4u/rg=";
 
     subPackages = [ "cmd/golangci-lint" ];
   };
