@@ -21,8 +21,6 @@ pkgs.mkShell {
     golangci-lint-private
     pkgs.yq
     pkgs.jq
-    pkgs.gettext
-    pkgs.bashInteractive
     pkgs.go
     pkgs.kubectl
     pkgs.kubernetes-controller-tools
@@ -45,8 +43,6 @@ pkgs.mkShell {
     export PATH=$PATH:${pkgs.envsubst}/bin
     export PATH=$PATH:${pkgs.git}/bin
     export PATH=$PATH:${pkgs.jq}/bin
-    export PATH=$PATH:${pkgs.gettext}/bin
-    export PATH=$PATH:${pkgs.bashInteractive}/bin
     export PATH=$PATH:${pkgs.kubernetes-controller-tools}/bin
     export PATH=$PATH:${pkgs.kubectl}/bin
     export PATH=$PATH:${pkgs.kustomize}/bin
