@@ -1,7 +1,7 @@
 { pkgs ? import <nixpkgs> {} }:
 
 let
-  pkgs = import (builtins.fetchGit {
+  pkgs2 = import (builtins.fetchGit {
     # Descriptive name to make the store path easier to identify
     name = "my-old-revision";
     url = "https://github.com/NixOS/nixpkgs/";
@@ -9,7 +9,7 @@ let
     rev = "824421b1796332ad1bcb35bc7855da832c43305f";
   }) {};
 
-  myPkg = pkgs.golangci-lint;
+  myPkg = pkgs2.golangci-lint;
 in
 pkgs.mkShell {
   buildInputs = [
