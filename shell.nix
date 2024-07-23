@@ -8,7 +8,7 @@ overlay = self: super: {
         owner = "golangci";
         repo = "golangci-lint";
         rev = "v1.54.0";
-        sha256 = "eebf3786f4a33ec2c04724c90bada412f0343704e1c19b475d6aa25ee8c1ac16";
+        sha256 = "c1d8c565fa4b92197257b68f3339d7a5e0a07486";
       };
     });
   };
