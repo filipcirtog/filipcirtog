@@ -1,22 +1,17 @@
 { pkgs ? import <nixpkgs> {} }:
 
 let
-  overlay = self: super: {
-    golangci-lint = super.golangci-lint.overrideAttrs (oldAttrs: {
-      version = "1.54.0";
-      src = super.fetchFromGitHub {
-        owner = "golangci";
-        repo = "golangci-lint";
-        rev = "v1.54.0";
-        sha256 = "1d5jqm21jvb6lqx2aizv28fqdx747sa8i98hpkpgsdjjvn07jwsi";
-      };
-    });
-  };
+  pkgs = import (builtins.fetchGit {
+    # Descriptive name to make the store path easier to identify
+    name = "my-old-revision";
+    url = "https://github.com/NixOS/nixpkgs/";
+    ref = "refs/heads/nixpkgs-unstable";
+    rev = "824421b1796332ad1bcb35bc7855da832c43305f";
+  }) {};
 
-  pkgsWithOverlay = import <nixpkgs> {
-    overlays = [ overlay ];
-  };
-in pkgs.mkShell {
+  myPkg = pkgs.golangci-lint;
+in
+pkgs.mkShell {
   buildInputs = [
     pkgs.yq
     pkgs.jq
@@ -33,11 +28,11 @@ in pkgs.mkShell {
     pkgs.govulncheck
     pkgs.gotools
     pkgs.go-licenses
+    myPkg
   ];
 
   shellHook = ''
     export PATH=$PATH:${pkgs.go}/bin
-    export PATH=$PATH:${pkgs.golangci-lint}/bin
     export PATH=$PATH:${pkgs.cosign}/bin
     export PATH=$PATH:${pkgs.go-licenses}/bin
     export PATH=$PATH:${pkgs.yq}/bin
