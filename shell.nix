@@ -37,6 +37,7 @@ in pkgs.mkShell {
 
   shellHook = ''
     export PATH=$PATH:${pkgs.go}/bin
+    export PATH=$PATH:${pkgs.golangci-lint}/bin
     export PATH=$PATH:${pkgs.cosign}/bin
     export PATH=$PATH:${pkgs.go-licenses}/bin
     export PATH=$PATH:${pkgs.yq}/bin
