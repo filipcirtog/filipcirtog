@@ -1,14 +1,14 @@
 { pkgs ? import <nixpkgs> {} }:
 
 let
-overlay = self: super: {
+  overlay = self: super: {
     golangci-lint = super.golangci-lint.overrideAttrs (oldAttrs: {
       version = "1.54.0";
       src = super.fetchFromGitHub {
         owner = "golangci";
         repo = "golangci-lint";
         rev = "v1.54.0";
-        sha256 = "c1d8c565fa4b92197257b68f3339d7a5e0a07486";
+        sha256 = "1d5jqm21jvb6lqx2aizv28fqdx747sa8i98hpkpgsdjjvn07jwsi";
       };
     });
   };
