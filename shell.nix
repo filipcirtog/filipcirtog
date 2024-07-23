@@ -1,18 +1,24 @@
-{ pkgs ? import <nixpkgs> {} }:
-
+{ pkgs ? import <nixpkgs> { } }:
 let
-  pkgs2 = import (builtins.fetchGit {
-    # Descriptive name to make the store path easier to identify
-    name = "my-old-revision";
-    url = "https://github.com/NixOS/nixpkgs/";
-    ref = "refs/heads/nixpkgs-unstable";
-    rev = "824421b1796332ad1bcb35bc7855da832c43305f";
-  }) {};
+  golangci-lint-private = pkgs.buildGoModule rec {
+    pname = "golangci-lint";
+    version = "1.54.0";
 
-  myPkg = pkgs2.golangci-lint;
+    src = pkgs.fetchFromGitHub {
+      owner = "golangci";
+      repo = "golangci-lint";
+      rev = "v${version}";
+      sha256 = "1d5jqm21jvb6lqx2aizv28fqdx747sa8i98hpkpgsdjjvn07jwsi";
+    };
+
+    vendorSha256 = "sha256-jUlK/A0HxBrIby2C0zYFtnxQX1bgKVyypI3QdH4u/rg=";
+
+    subPackages = [ "cmd/golangci-lint" ];
+  };
 in
 pkgs.mkShell {
   buildInputs = [
+    golangci-lint-private
     pkgs.yq
     pkgs.jq
     pkgs.gettext
@@ -21,14 +27,13 @@ pkgs.mkShell {
     pkgs.kubectl
     pkgs.kubernetes-controller-tools
     pkgs.kustomize
-    pkgs.git    
+    pkgs.git
     pkgs.envsubst
     pkgs.wget
     pkgs.cosign
     pkgs.govulncheck
     pkgs.gotools
     pkgs.go-licenses
-    myPkg
   ];
 
   shellHook = ''
