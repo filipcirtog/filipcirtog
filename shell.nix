@@ -3,7 +3,7 @@
 let
 overlay = self: super: {
     golangci-lint = super.golangci-lint.overrideAttrs (oldAttrs: {
-      version = "1.54.2";
+      version = "1.54.0";
       src = super.fetchFromGitHub {
         owner = "golangci";
         repo = "golangci-lint";
