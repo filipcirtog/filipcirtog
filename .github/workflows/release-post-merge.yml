@@ -127,10 +127,14 @@ jobs:
       - name: Build all platforms & check version
         if: steps.pick-dockerfile.outputs.dockerfile == 'fast.Dockerfile'
         run: |
-          devbox run -- 'make all-platforms VERSION=${{ steps.tag.outputs.version }}
-          if make | grep -q check-version; then
-            make check-version VERSION=${{ steps.tag.outputs.version }}
-          fi'
+           make all-platforms VERSION=${{ steps.tag.outputs.version }}
+            # Not all versions of Makefiles support the version check
+            if make -n | grep -q check-version; then
+              echo "Checking version..."
+              make check-version VERSION=${{ steps.tag.outputs.version }}
+            else
+              echo "Skipped version check"
+            fi'
       - name: Build and Push image
         uses: ./.github/actions/build-push-image
         with:
