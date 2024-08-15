@@ -148,54 +148,7 @@ jobs:
           push_to_quay: false
           quay_username: mongodb+mongodb_atlas_kubernetes
           quay_password: ${{ secrets.QUAY_PASSWORD }}
-          tags: |
-            ${{ steps.tag.outputs.repo }}:${{ steps.tag.outputs.version }}
-            quay.io/${{ steps.tag.outputs.repo }}:${{ steps.tag.outputs.version }}
-            quay.io/${{ steps.tag.outputs.repo }}:${{ steps.tag.outputs.version }}-certified
-      - name: Certify Openshift images
-        if: ${{ steps.tag.outputs.certify == 'true' }}
-        uses: ./.github/actions/certify-openshift-images
-        with:
-          registry: quay.io
-          registry_password: ${{ secrets.QUAY_PASSWORD }}
-          repository: ${{ steps.tag.outputs.repo }}
-          version: ${{ steps.tag.outputs.certified_version }}
-          rhcc_token: ${{ secrets.RH_CERTIFICATION_PYXIS_API_TOKEN }}
-          rhcc_project: ${{ secrets.RH_CERTIFICATION_OSPID }}
-          submit: true
-      - name: Login to artifactory.corp.mongodb.com
-        if: steps.check-signing-support.outputs.sign == 'true'
-        uses: docker/login-action@v3
-        with:
-          registry: artifactory.corp.mongodb.com
-          username: ${{ secrets.MDB_ARTIFACTORY_USERNAME }}
-          password: ${{ secrets.MDB_ARTIFACTORY_PASSWORD }}
-      - name: Sign images
-        if: steps.check-signing-support.outputs.sign == 'true'
-        env:
-          PKCS11_URI: ${{ secrets.PKCS11_URI }}
-          GRS_USERNAME:  ${{ secrets.GRS_USERNAME }}
-          GRS_PASSWORD:  ${{ secrets.GRS_PASSWORD }}
-          IMAGE_REPOSITORY: ${{ steps.tag.outputs.repo }}
-        run: |
-          devbox run -- 'make sign IMG="${{ env.IMAGE_REPOSITORY }}:${{ steps.tag.outputs.version }}" SIGNATURE_REPO=${{ env.IMAGE_REPOSITORY }}
-          make sign IMG="quay.io/${{ env.IMAGE_REPOSITORY }}:${{ steps.tag.outputs.version }}" SIGNATURE_REPO=${{ env.IMAGE_REPOSITORY }}
-          make sign IMG="quay.io/${{ env.IMAGE_REPOSITORY }}:${{ steps.tag.outputs.version }}-certified" SIGNATURE_REPO=${{ env.IMAGE_REPOSITORY }}
-          make sign IMG="${{ env.IMAGE_REPOSITORY }}:${{ steps.tag.outputs.version }}" SIGNATURE_REPO=mongodb/signatures
-          make sign IMG="quay.io/${{ env.IMAGE_REPOSITORY }}:${{ steps.tag.outputs.version }}-certified" SIGNATURE_REPO=mongodb/signatures'
-      - name: Self-verify images
-        if: steps.check-signing-support.outputs.sign == 'true'
-        env:
-          PKCS11_URI: ${{ secrets.PKCS11_URI }}
-          GRS_USERNAME:  ${{ secrets.GRS_USERNAME }}
-          GRS_PASSWORD:  ${{ secrets.GRS_PASSWORD }}
-          IMAGE_REPOSITORY: ${{ steps.tag.outputs.repo }}
-        run: |
-          devbox run -- 'make verify IMG="${{ env.IMAGE_REPOSITORY }}:${{ steps.tag.outputs.version }}" SIGNATURE_REPO=${{ env.IMAGE_REPOSITORY }}
-          make verify IMG="quay.io/${{ env.IMAGE_REPOSITORY }}:${{ steps.tag.outputs.version }}" SIGNATURE_REPO=${{ env.IMAGE_REPOSITORY }}
-          make verify IMG="quay.io/${{ env.IMAGE_REPOSITORY }}:${{ steps.tag.outputs.version }}-certified" SIGNATURE_REPO=${{ env.IMAGE_REPOSITORY }}
-          make verify IMG="${{ env.IMAGE_REPOSITORY }}:${{ steps.tag.outputs.version }}" SIGNATURE_REPO=mongodb/signatures
-          make verify IMG="quay.io/${{ env.IMAGE_REPOSITORY }}:${{ steps.tag.outputs.version }}-certified" SIGNATURE_REPO=mongodb/signatures'
+          tags: ghcr.io/${{ steps.tag.outputs.repo }}:${{ steps.tag.outputs.version }}
       - name: Create configuration package
         run: |
           devbox run -- 'set -x
