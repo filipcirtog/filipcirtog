@@ -135,6 +135,8 @@ jobs:
             else
               echo "Skipped version check"
             fi'
+      - name: Log in to ghcr.io registry
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
       - name: Build and Push image
         uses: ./.github/actions/build-push-image
         with:
@@ -145,9 +147,6 @@ jobs:
           platforms: linux/amd64,linux/arm64
           docker_username: ${{ secrets.DOCKER_USERNAME }}
           docker_password: ${{ secrets.DOCKER_PASSWORD }}
-          push_to_quay: false
-          quay_username: mongodb+mongodb_atlas_kubernetes
-          quay_password: ${{ secrets.QUAY_PASSWORD }}
           tags: ghcr.io/${{ steps.tag.outputs.repo }}:${{ steps.tag.outputs.version }}
       - name: Create configuration package
         run: |
