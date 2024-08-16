@@ -135,6 +135,8 @@ jobs:
             else
               echo "Skipped version check"
             fi'
+      - name: Log in to ghcr.io registry
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
       - name: Build and Push image
         uses: ./.github/actions/build-push-image
         with:
