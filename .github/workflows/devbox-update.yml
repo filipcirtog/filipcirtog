@@ -22,22 +22,27 @@ jobs:
       run: |
         devbox update
 
+    - name: Generate Branch Name
+      id: generate_branch
+      run: |
+        RANDOM_NUM=$((RANDOM % 10000))  # Generate a random number between 0 and 9999
+        BRANCH_NAME="devbox-update-$(date +'%Y-%m-%d')-$RANDOM_NUM"
+        echo "BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_ENV  # Export branch name to the environment
+
     - name: Commit and Push Changes
       run: |
         git config --local user.email "akobot@ako-team-fake.mongodb.com"
         git config --local user.name "AKOBot"
-        RANDOM_NUM=$((RANDOM % 10000))  # Generate a random number between 0 and 9999
-        BRANCH_NAME="devbox-update-$(date +'%Y-%m-%d')-$RANDOM_NUM"
-        git checkout -b $BRANCH_NAME  # New branch with a unique name including a random number
+        git checkout -b ${{ steps.generate_branch.outputs.BRANCH_NAME }}  # New branch with the name from the environment variable
         git add .
         git commit -m "Weekly devbox dependencies update"
-        git push origin $BRANCH_NAME  # Push to the newly created branch
+        git push origin ${{ steps.generate_branch.outputs.BRANCH_NAME }}  # Push to the newly created branch
 
     - name: Create Pull Request
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         PR_URL=$(curl -X POST -H "Authorization: token $GITHUB_TOKEN" \
-        -d '{"title":"Weekly Devbox Update","body":"This PR contains the weekly dependencies update for Devbox.","head":"'"$BRANCH_NAME"'","base":"main"}' \
+        -d '{"title":"Weekly Devbox Update","body":"This PR contains the weekly dependencies update for Devbox.","head":"'${{ steps.generate_branch.outputs.BRANCH_NAME }}","base":"main"}' \
         https://api.github.com/repos/${{ github.repository }}/pulls | jq -r '.html_url')
         echo "Pull request created: $PR_URL"
