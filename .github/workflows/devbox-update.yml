@@ -1,0 +1,40 @@
+name: Weekly Devbox Update
+
+on:
+  schedule:
+    - cron: '0 0 * * 0'  # This cron expression runs the action at 00:00 UTC every Sunday
+
+jobs:
+  update-devbox:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+      
+    - name: Install devbox
+      uses: jetify-com/devbox-install-action@v0.11.0
+      with:
+        enable-cache: 'true'
+    
+    - name: Update Devbox
+      run: |
+        devbox update
+
+    - name: Commit and Push Changes
+      run: |
+        git config --local user.email "your-bot-email@example.com"
+        git config --local user.name "Your Bot Name"
+        git checkout -b devbox-update-$(date +'%Y-%m-%d')  # Create a new branch with a unique name
+        git add .
+        git commit -m "Weekly devbox update"
+        git push origin devbox-update-$(date +'%Y-%m-%d')  # Push to the newly created branch
+
+    - name: Create Pull Request
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        PR_URL=$(curl -X POST -H "Authorization: token $GITHUB_TOKEN" \
+        -d '{"title":"Weekly Devbox Update","body":"This PR contains the weekly update for Devbox.","head":"devbox-update-'"$(date +'%Y-%m-%d')"'", "base":"main"}' \
+        https://api.github.com/repos/${{ github.repository }}/pulls | jq -r '.html_url')
+        echo "Pull request created: $PR_URL"
