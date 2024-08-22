@@ -27,7 +27,7 @@ jobs:
       run: |
         RANDOM_NUM=$((RANDOM % 10000))  # Generate a random number between 0 and 9999
         BRANCH_NAME="devbox-update-$(date +'%Y-%m-%d')-$RANDOM_NUM"
-        echo "BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_ENV  # Export branch name to the environment
+        echo "BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_OUTPUT  # Export branch name to the environment
 
     - name: Commit and Push Changes
       run: |
