@@ -19,33 +19,25 @@ jobs:
         enable-cache: 'true'
     
     - name: Update Devbox
-      id: update_devbox  # Add an ID to reference this step later
       run: |
-        devbox update | tee update-log.txt  # Save output to a file
-    
+        devbox update
+
     - name: Commit and Push Changes
       run: |
         git config --local user.email "akobot@ako-team-fake.mongodb.com"
         git config --local user.name "AKOBot"
-        git checkout -b devbox-update-$(date +'%Y-%m-%d')  # New branch with a unique name
+        RANDOM_NUM=$((RANDOM % 10000))  # Generate a random number between 0 and 9999
+        BRANCH_NAME="devbox-update-$(date +'%Y-%m-%d')-$RANDOM_NUM"
+        git checkout -b $BRANCH_NAME  # New branch with a unique name including a random number
         git add .
         git commit -m "Weekly devbox dependencies update"
-        git push origin devbox-update-$(date +'%Y-%m-%d')  # Push to the newly created branch
+        git push origin $BRANCH_NAME  # Push to the newly created branch
 
     - name: Create Pull Request
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        # Extract updated dependencies from the log
-        UPDATED_DEPENDENCIES=$(grep -A 10 "updated" update-log.txt)  # Adjust the grep command based on your update log structure
-        PR_BODY="This PR contains the weekly dependencies update for Devbox.\n\nUpdated dependencies:\n$UPDATED_DEPENDENCIES"
-        
-        # Create the pull request with the updated dependencies listed
         PR_URL=$(curl -X POST -H "Authorization: token $GITHUB_TOKEN" \
-        -d "{\"title\":\"Weekly Devbox Update\",\"body\":\"$PR_BODY\",\"head\":\"devbox-update-$(date +'%Y-%m-%d')\", \"base\":\"main\"}" \
+        -d '{"title":"Weekly Devbox Update","body":"This PR contains the weekly dependencies update for Devbox.","head":"'"$BRANCH_NAME"'","base":"main"}' \
         https://api.github.com/repos/${{ github.repository }}/pulls | jq -r '.html_url')
         echo "Pull request created: $PR_URL"
-
-    - name: Cleanup
-      run: |
-        rm update-log.txt  # Remove the log file after PR creation
