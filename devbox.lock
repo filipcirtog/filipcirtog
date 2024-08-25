@@ -146,8 +146,8 @@
       }
     },
     "gettext@latest": {
-      "last_modified": "2024-08-19T06:06:21Z",
-      "resolved": "github:NixOS/nixpkgs/e9b5094b8f6e06a46f9f53bb97a9573b7cedf2a2#gettext",
+      "last_modified": "2024-08-21T20:16:49Z",
+      "resolved": "github:NixOS/nixpkgs/36a9aeaaa17a2d4348498275f9fe530cd4f9e519#gettext",
       "source": "devbox-search",
       "version": "0.21.1",
       "systems": {
@@ -233,12 +233,12 @@
               "default": true
             },
             {
-              "name": "doc",
-              "path": "/nix/store/zkv35jnv1sy7ny8h45c9zb9sd3f76mib-gettext-0.21.1-doc"
-            },
-            {
               "name": "info",
               "path": "/nix/store/dlizqqva4gdnryqybmg8sbcasybizw9i-gettext-0.21.1-info"
+            },
+            {
+              "name": "doc",
+              "path": "/nix/store/zkv35jnv1sy7ny8h45c9zb9sd3f76mib-gettext-0.21.1-doc"
             }
           ],
           "store_path": "/nix/store/5i7vyd1n23g84fljnp9y80yvz6b7k9c4-gettext-0.21.1"
@@ -462,50 +462,50 @@
       }
     },
     "golangci-lint@latest": {
-      "last_modified": "2024-08-14T11:41:26Z",
-      "resolved": "github:NixOS/nixpkgs/0cb2fd7c59fed0cd82ef858cbcbdb552b9a33465#golangci-lint",
+      "last_modified": "2024-08-21T11:30:02Z",
+      "resolved": "github:NixOS/nixpkgs/f132a77a82530de0d10216f09857090d324fee05#golangci-lint",
       "source": "devbox-search",
-      "version": "1.60.1",
+      "version": "1.60.2",
       "systems": {
         "aarch64-darwin": {
           "outputs": [
             {
               "name": "out",
-              "path": "/nix/store/nb8a2y6dcsmhr32hlmpamw50dkdfn3wl-golangci-lint-1.60.1",
+              "path": "/nix/store/zl8l769wimy5bsvrlcvq9f6b7465z4hx-golangci-lint-1.60.2",
               "default": true
             }
           ],
-          "store_path": "/nix/store/nb8a2y6dcsmhr32hlmpamw50dkdfn3wl-golangci-lint-1.60.1"
+          "store_path": "/nix/store/zl8l769wimy5bsvrlcvq9f6b7465z4hx-golangci-lint-1.60.2"
         },
         "aarch64-linux": {
           "outputs": [
             {
               "name": "out",
-              "path": "/nix/store/8112xawpm1ypp6gsz9h09ri6zjjd3m7q-golangci-lint-1.60.1",
+              "path": "/nix/store/drgzg08jxcc50azd6bchxy6gcym2kwav-golangci-lint-1.60.2",
               "default": true
             }
           ],
-          "store_path": "/nix/store/8112xawpm1ypp6gsz9h09ri6zjjd3m7q-golangci-lint-1.60.1"
+          "store_path": "/nix/store/drgzg08jxcc50azd6bchxy6gcym2kwav-golangci-lint-1.60.2"
         },
         "x86_64-darwin": {
           "outputs": [
             {
               "name": "out",
-              "path": "/nix/store/zjh1bnambjwj13j9gxx0xg8hxblqacxs-golangci-lint-1.60.1",
+              "path": "/nix/store/my7afydss5zsi4z30mzshj31bm2v5chd-golangci-lint-1.60.2",
               "default": true
             }
           ],
-          "store_path": "/nix/store/zjh1bnambjwj13j9gxx0xg8hxblqacxs-golangci-lint-1.60.1"
+          "store_path": "/nix/store/my7afydss5zsi4z30mzshj31bm2v5chd-golangci-lint-1.60.2"
         },
         "x86_64-linux": {
           "outputs": [
             {
               "name": "out",
-              "path": "/nix/store/il2a9jd3kbh91yxbm90z0am3c34gfxgf-golangci-lint-1.60.1",
+              "path": "/nix/store/rp23zfccxkvzqphhrx0sp2pz682v89r8-golangci-lint-1.60.2",
               "default": true
             }
           ],
-          "store_path": "/nix/store/il2a9jd3kbh91yxbm90z0am3c34gfxgf-golangci-lint-1.60.1"
+          "store_path": "/nix/store/rp23zfccxkvzqphhrx0sp2pz682v89r8-golangci-lint-1.60.2"
         }
       }
     },
@@ -654,8 +654,8 @@
       }
     },
     "jq@latest": {
-      "last_modified": "2024-08-20T09:32:23Z",
-      "resolved": "github:NixOS/nixpkgs/a04eac9c5aa7f82e02d6e9e0b203b6eb5704c141#jq",
+      "last_modified": "2024-08-21T02:49:08Z",
+      "resolved": "github:NixOS/nixpkgs/4c30668e1edb7348169407f218fa7c71a94b17f3#jq",
       "source": "devbox-search",
       "version": "1.7.1",
       "systems": {
@@ -672,20 +672,20 @@
               "default": true
             },
             {
-              "name": "dev",
-              "path": "/nix/store/qjq0bcabb4qsmsdsvd1j969m8ldizih5-jq-1.7.1-dev"
-            },
-            {
-              "name": "doc",
-              "path": "/nix/store/fjnj42dfjx6dm3d58ak7jgkp41gcgzz2-jq-1.7.1-doc"
-            },
-            {
               "name": "lib",
               "path": "/nix/store/gvdvq75g2l8imsnwkig0y016yml11xi2-jq-1.7.1-lib"
             },
             {
               "name": "out",
               "path": "/nix/store/pipq080jz3g82l69pxivws45y76bdr2x-jq-1.7.1"
+            },
+            {
+              "name": "dev",
+              "path": "/nix/store/qjq0bcabb4qsmsdsvd1j969m8ldizih5-jq-1.7.1-dev"
+            },
+            {
+              "name": "doc",
+              "path": "/nix/store/fjnj42dfjx6dm3d58ak7jgkp41gcgzz2-jq-1.7.1-doc"
             }
           ],
           "store_path": "/nix/store/ljpsp4f53h3ckmc4czxflj80ix8fqpdd-jq-1.7.1-bin"
@@ -703,6 +703,10 @@
               "default": true
             },
             {
+              "name": "lib",
+              "path": "/nix/store/4jyirc6ds8blyq9gghjasaqp7ysjxi0n-jq-1.7.1-lib"
+            },
+            {
               "name": "out",
               "path": "/nix/store/7pl1lv0lws955p475l8bc48fyp4z5ls5-jq-1.7.1"
             },
@@ -713,10 +717,6 @@
             {
               "name": "doc",
               "path": "/nix/store/vnxv8cz3ad5hhc5blqa5x22wysklh3bi-jq-1.7.1-doc"
-            },
-            {
-              "name": "lib",
-              "path": "/nix/store/4jyirc6ds8blyq9gghjasaqp7ysjxi0n-jq-1.7.1-lib"
             }
           ],
           "store_path": "/nix/store/r5zdg1d18jlrbz72y385y8c73qxhig97-jq-1.7.1-bin"
@@ -765,10 +765,6 @@
               "default": true
             },
             {
-              "name": "out",
-              "path": "/nix/store/2yrlci50s3qma5wcnsisy9w4i4xva58l-jq-1.7.1"
-            },
-            {
               "name": "dev",
               "path": "/nix/store/hs3z0qj7vixfynv0337dx23rq8jyfiwx-jq-1.7.1-dev"
             },
@@ -779,6 +775,10 @@
             {
               "name": "lib",
               "path": "/nix/store/inklgpq2p12r44crs5fj6n3mwh5gvqb9-jq-1.7.1-lib"
+            },
+            {
+              "name": "out",
+              "path": "/nix/store/2yrlci50s3qma5wcnsisy9w4i4xva58l-jq-1.7.1"
             }
           ],
           "store_path": "/nix/store/wq2z3xx9z1d1d1c46mcrpd292qmnxdaa-jq-1.7.1-bin"
